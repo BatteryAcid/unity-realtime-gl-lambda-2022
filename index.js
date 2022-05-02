@@ -5,18 +5,27 @@ const { v4: uuidv4 } = require('uuid');
 const REQUEST_FIND_MATCH = "1";
 const MAX_PLAYER_COUNT = 2;
 
+const TARGET_GAMELIFT_QUEUE_NAME = "YOUR_TARGET_GAMELIFT_QUEUE_NAME";
+
 async function getActiveQueue() {
-    var input = {
-        "Limit": 1
+    var options = {
+        "Limit": 5 // how many GameLift queues to return
     }
     
-    return await gameLiftClient.describeGameSessionQueues(input).promise().then(data => {
+    return await gameLiftClient.describeGameSessionQueues(options).promise().then(data => {
         console.log(data);
         
         if (data.GameSessionQueues && data.GameSessionQueues.length > 0) {
             // for now just grab the first Queue
             console.log("we have some queues");
-            return data.GameSessionQueues[0];
+            
+            let selectedGameSessionQueue;
+            data.GameSessionQueues.forEach(gameSessionQueue => {
+                if (gameSessionQueue.Name == TARGET_GAMELIFT_QUEUE_NAME) {
+                    selectedGameSessionQueue = gameSessionQueue;
+                }
+            });
+            return selectedGameSessionQueue;
         }
         else {
             console.log("No queues available");
