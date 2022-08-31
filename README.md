@@ -9,6 +9,10 @@ An AWS Lambda project that handles all of the major game session actions for the
 ## Tutorial Video  
 
 * https://youtu.be/rw0SkOTo31E
+    
+## 👋 Let's talk shop 👇  
+[Discord] https://discord.gg/psjbBDvNBK  
+[Twitter] https://twitter.com/BatteryAcidDev
 
 ## Resources
 
